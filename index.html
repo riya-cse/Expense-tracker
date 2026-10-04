@@ -1,292 +1,316 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expense Tracker</title>
+<!DOCTYPE html>
+<html lang="en">
 
-<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head> <body>
-<div class="container">
+    <title>Expense Tracker</title>
 
-    <h1>Expense Tracker</h1>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <!-- Summary -->
+<body>
 
-    <div class="summary">
+    <!-- Floating Background Circles -->
+    <div class="floating-circle circle1"></div>
+    <div class="floating-circle circle2"></div>
+    <div class="floating-circle circle3"></div>
 
-        <div class="box">
-            <h3>Balance</h3>
-            <p id="balance">₹0</p>
+
+    <div class="container">
+
+        <h1>Expense Tracker</h1>
+
+
+        <!-- Summary -->
+
+        <div class="summary">
+
+            <div class="box">
+                <h3>Balance</h3>
+                <p id="balance">₹0</p>
+            </div>
+
+            <div class="box income">
+                <h3>Income</h3>
+                <p id="income">₹0</p>
+            </div>
+
+            <div class="box expense">
+                <h3>Expense</h3>
+                <p id="expense">₹0</p>
+            </div>
+
+            <div class="box">
+                <h3>Transactions</h3>
+                <p id="transactionCount">0</p>
+            </div>
+
         </div>
 
-        <div class="box income">
-            <h3>Income</h3>
-            <p id="income">₹0</p>
+
+        <!-- Add Transaction -->
+
+        <div class="form-section">
+
+            <h2>Add Transaction</h2>
+
+            <form id="transactionForm">
+
+                <label>Description</label>
+
+                <input
+                    type="text"
+                    id="description"
+                    placeholder="Enter description"
+                    required
+                >
+
+
+                <label>Amount</label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="Enter amount"
+                    required
+                >
+
+
+                <label>Type</label>
+
+                <select id="type">
+
+                    <option value="income">Income</option>
+
+                    <option value="expense">Expense</option>
+
+                </select>
+
+
+                <label>Category</label>
+
+                <select id="category">
+
+                    <option value="Food">Food</option>
+
+                    <option value="Travel">Travel</option>
+
+                    <option value="Shopping">Shopping</option>
+
+                    <option value="Bills">Bills</option>
+
+                    <option value="Education">Education</option>
+
+                    <option value="Entertainment">Entertainment</option>
+
+                    <option value="Health">Health</option>
+
+                    <option value="Other">Other</option>
+
+                </select>
+
+
+                <label>Date</label>
+
+                <input
+                    type="date"
+                    id="date"
+                    required
+                >
+
+
+                <button type="submit">
+                    Add Transaction
+                </button>
+
+                <button type="button" id="cancelEditBtn">
+                    Cancel Edit
+                </button>
+
+            </form>
+
         </div>
 
-        <div class="box expense">
-            <h3>Expense</h3>
-            <p id="expense">₹0</p>
+
+        <!-- Category-wise Expense -->
+
+        <div class="category-section">
+
+            <h2>Category-wise Expense</h2>
+
+            <div id="categorySummary"></div>
+
         </div>
 
-        <div class="box">
-            <h3>Transactions</h3>
-            <p id="transactionCount">0</p>
+
+        <!-- Category Expense Chart -->
+
+        <div class="chart-section">
+
+            <h2>Category Expense Chart</h2>
+
+            <div class="chart-container">
+
+                <canvas id="categoryExpenseChart"></canvas>
+
+            </div>
+
         </div>
 
-    </div>
+
+        <!-- Income vs Expense -->
+
+        <div class="comparison-section">
+
+            <h2>Income vs Expense</h2>
 
 
-    <!-- Add Transaction -->
+            <div class="comparison-item">
 
-    <div class="form-section">
+                <div class="comparison-header">
 
-        <h2>Add Transaction</h2>
+                    <span>Income</span>
 
-        <form id="transactionForm">
+                    <span id="incomePercent">
+                        0%
+                    </span>
 
-            <label>Description</label>
+                </div>
+
+                <div class="comparison-bar">
+
+                    <div
+                        id="incomeBar"
+                        class="income-bar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="comparison-item">
+
+                <div class="comparison-header">
+
+                    <span>Expense</span>
+
+                    <span id="expensePercent">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="comparison-bar">
+
+                    <div
+                        id="expenseBar"
+                        class="expense-bar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Income vs Expense Chart -->
+
+        <div class="chart-section">
+
+            <h2>Income vs Expense Chart</h2>
+
+            <div class="chart-container">
+
+                <canvas id="incomeExpenseChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- Monthly Expense -->
+
+        <div class="category-section">
+
+            <h2>Monthly Expense</h2>
+
+            <div id="monthlySummary"></div>
+
+        </div>
+
+
+        <!-- Monthly Expense Chart -->
+
+        <div class="chart-section">
+
+            <h2>Monthly Expense Chart</h2>
+
+            <div class="chart-container">
+
+                <canvas id="monthlyExpenseChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- Transaction History -->
+
+        <div class="transaction-section">
+
+            <h2>Transaction History</h2>
+
+
+            <!-- Search -->
 
             <input
                 type="text"
-                id="description"
-                placeholder="Enter description"
-                required
+                id="searchInput"
+                placeholder="Search transaction..."
             >
 
 
-            <label>Amount</label>
+            <!-- Filter -->
 
-            <input
-                type="number"
-                id="amount"
-                placeholder="Enter amount"
-                required
-            >
+            <select id="filterType">
 
+                <option value="all">
+                    All Transactions
+                </option>
 
-            <label>Type</label>
+                <option value="income">
+                    Income
+                </option>
 
-            <select id="type">
-
-                <option value="income">Income</option>
-
-                <option value="expense">Expense</option>
+                <option value="expense">
+                    Expense
+                </option>
 
             </select>
 
 
-            <label>Category</label>
+            <!-- Transaction List -->
 
-            <select id="category">
-
-                <option value="Food">Food</option>
-
-                <option value="Travel">Travel</option>
-
-                <option value="Shopping">Shopping</option>
-
-                <option value="Bills">Bills</option>
-
-                <option value="Education">Education</option>
-
-                <option value="Entertainment">Entertainment</option>
-
-                <option value="Health">Health</option>
-
-                <option value="Other">Other</option>
-
-            </select>
-
-
-            <label>Date</label>
-
-            <input
-                type="date"
-                id="date"
-                required
-            >
-
-
-            <button type="submit">
-                Add Transaction
-            </button>
-
-            <button type="button" id="cancelEditBtn">
-                Cancel Edit
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <!-- Category-wise Expense -->
-
-    <div class="category-section">
-
-        <h2>Category-wise Expense</h2>
-
-        <div id="categorySummary"></div>
-
-    </div>
-
-
-    <!-- Category Expense Chart -->
-
-    <div class="chart-section">
-
-        <h2>Category Expense Chart</h2>
-
-        <div class="chart-container">
-            <canvas id="categoryExpenseChart"></canvas>
-        </div>
-
-    </div>
-
-
-    <!-- Income vs Expense -->
-
-    <div class="comparison-section">
-
-        <h2>Income vs Expense</h2>
-
-        <div class="comparison-item">
-
-            <div class="comparison-header">
-
-                <span>Income</span>
-
-                <span id="incomePercent">
-                    0%
-                </span>
-
-            </div>
-
-            <div class="comparison-bar">
-
-                <div
-                    id="incomeBar"
-                    class="income-bar"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <div class="comparison-item">
-
-            <div class="comparison-header">
-
-                <span>Expense</span>
-
-                <span id="expensePercent">
-                    0%
-                </span>
-
-            </div>
-
-            <div class="comparison-bar">
-
-                <div
-                    id="expenseBar"
-                    class="expense-bar"
-                ></div>
-
-            </div>
+            <div id="transactionList"></div>
 
         </div>
 
     </div>
 
 
-    <!-- Income vs Expense Chart -->
+    <!-- Chart.js -->
 
-    <div class="chart-section">
-
-        <h2>Income vs Expense Chart</h2>
-
-        <div class="chart-container">
-            <canvas id="incomeExpenseChart"></canvas>
-        </div>
-
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-   <!-- Monthly Expense -->
+    <!-- Main JavaScript -->
 
-<div class="category-section">
+    <script src="script.js"></script>
 
-    <h2>Monthly Expense</h2>
+</body>
 
-    <div id="monthlySummary"></div>
-
-</div>
-
-
-<!-- Monthly Expense Chart -->
-
-<div class="chart-section">
-
-    <h2>Monthly Expense Chart</h2>
-
-    <div class="chart-container">
-        <canvas id="monthlyExpenseChart"></canvas>
-    </div>
-
-</div>
- 
-
-
-    <!-- Transaction History -->
-
-    <div class="transaction-section">
-
-        <h2>Transaction History</h2>
-
-
-        <!-- Search -->
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search transaction..."
-        >
-
-
-        <!-- Filter -->
-
-        <select id="filterType">
-
-            <option value="all">
-                All Transactions
-            </option>
-
-            <option value="income">
-                Income
-            </option>
-
-            <option value="expense">
-                Expense
-            </option>
-
-        </select>
-
-
-        <!-- Transaction List -->
-
-        <div id="transactionList"></div>
-
-    </div>
-
-</div>
-
-
-<!-- Chart.js -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Main JavaScript -->
-
-<script src="script.js"></script>
-
-</body> </html>
+</html>
